@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Ajouter un utilisateur</h2>
+
+  <div *ngIf="errorMsg.length > 0" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let error of errorMsg">{{ error }}</li>
+    </ul>
+  </div>
+
+  <div *ngIf="successMsg" class="alert alert-success">
+    {{ successMsg }}
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input id="nom" formControlName="nom" type="text" class="form-control" placeholder="Nom">
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input id="prenom" formControlName="prenom" type="text" class="form-control" placeholder="Prénom">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" placeholder="Email">
+    </div>
+
+    <div class="form-group">
+      <label for="age">Âge</label>
+      <input id="age" formControlName="age" type="number" class="form-control" placeholder="Âge">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control" placeholder="Mot de passe">
+    </div>
+
+    <div class="form-group">
+      <label for="categorie">Catégorie</label>
+      <select id="categorie" formControlName="categorieId" class="form-control">
+        <option value="" disabled>Sélectionner une catégorie</option>
+        <option *ngFor="let cat of listCategories" [value]="cat.id">{{ cat.libelle }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image (optionnelle)</label>
+      <input id="image" type="file" (change)="onFileSelected($event)" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Ajouter</button>
+  </form>
+</div>

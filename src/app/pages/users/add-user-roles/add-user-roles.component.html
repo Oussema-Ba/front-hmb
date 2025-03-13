@@ -1,0 +1,43 @@
+  <div class="card">
+    <div class="card-header">
+      <h3>Attribuer un Rôle à un Utilisateur</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="userRoleForm" (ngSubmit)="addUserRole()">
+
+        <div class="mb-3">
+          <label for="userId" class="form-label">Sélectionner un utilisateur</label>
+          <select id="userId" class="form-control" formControlName="userId" required>
+            <option value="" disabled selected>Choisir un utilisateur</option>
+            <option *ngFor="let user of users" [value]="user.id">{{ user.nom }} {{ user.prenom }}</option>
+          </select>
+          <div *ngIf="userRoleForm.get('userId')?.invalid && userRoleForm.get('userId')?.touched" class="text-danger">
+            L'utilisateur est requis.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="roleId" class="form-label">Sélectionner un rôle</label>
+          <select id="roleId" class="form-control" formControlName="roleId" required>
+            <option value="" disabled selected>Choisir un rôle</option>
+            <option *ngFor="let role of roles" [value]="role.id">{{ role.libelle }}</option>
+          </select>
+          <div *ngIf="userRoleForm.get('roleId')?.invalid && userRoleForm.get('roleId')?.touched" class="text-danger">
+            Le rôle est requis.
+          </div>
+        </div>
+
+        <div *ngIf="errorMsg.length" class="alert alert-danger" role="alert">
+          <p *ngFor="let msg of errorMsg">{{ msg }}</p>
+        </div>
+
+        <div *ngIf="successMsg" class="alert alert-success" role="alert">
+          {{ successMsg }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="userRoleForm.invalid">
+          Attribuer le Rôle
+        </button>
+      </form>
+    </div>
+  </div>
